@@ -1,0 +1,16 @@
+keycloak.localhost {
+    reverse_proxy http://keycloak:8080
+    tls internal
+}
+
+whoami.localhost {
+    reverse_proxy http://louketo
+    tls internal
+}
+
+# Serve caddy's generated cert for louketo to pick up
+caddy.localhost {
+    file_server /root.crt {
+        root /data/caddy/pki/authorities/local/
+    }
+}

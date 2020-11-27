@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  caddy:
+    image: caddy:2.1.1-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+    # Mount Caddyfile into the container for caddy to use
+    - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    networks:
+      default:
+        # Define aliases so that inside the docker network, these services can
+        #   also be reached at the specified addresses.
+        # keycloak needs to be reached at keycloak.localhost so that its
+        #   certificate will be valid (has the right domain name)
+        aliases:
+          - caddy.localhost
+          - keycloak.localhost
+          - whoami.localhost
+
+  keycloak:
+    image: jboss/keycloak:latest
+    volumes:
+    - ./config/keycloak/:/keycloak/:ro
+    depends_on:
+      - caddy
+    environment:
+      # Use the inbuilt h2 database for demo purposes
+      DB_VENDOR: h2
+      # Credentials for demo
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password
+      # Set PROXY_ADDRESS_FORWARDING so that Keycloak knows it is behind a proxy
+      PROXY_ADDRESS_FORWARDING: "true"
+      KEYCLOAK_HOME: /opt/jboss/keycloak
+    entrypoint: /keycloak/start.sh
+
+  louketo:
+    image: quay.io/louketo/louketo-proxy:1.0.0
+    volumes:
+      - ./config/louketo/:/louketo/:ro
+    entrypoint: /louketo/start.sh
+    depends_on:
+      - keycloak
+    # We run as root in this demo so that root can add caddy's self-signed cert
+    #   to the system store
+    user: root
+    environment:
+      # Credentials used to login to keycloak - set above
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password
+
+  whoami:
+    image: containous/whoami:latest
+    depends_on:
+      - louketo

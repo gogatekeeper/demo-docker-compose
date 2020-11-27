@@ -1,0 +1,24 @@
+client-id: whoami
+discovery-url: https://keycloak.localhost/auth/realms/applications
+encryption-key: yb96KrChmqnEOHuIbBi650T7VDqyTwLZ
+
+scopes:
+- whoami
+
+# Turn on debug
+verbose: true
+
+enable-refresh-tokens: true
+
+listen: :80
+redirection-url: https://whoami.localhost
+upstream-url: http://whoami:80
+
+enable-default-deny: true
+
+# Only whitelist /, everything else requires authentication
+resources:
+- uri: /
+  methods:
+  - GET
+  white-listed: true
