@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sleep 1  # TODO remove
-
 set -eu
 
 script_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)

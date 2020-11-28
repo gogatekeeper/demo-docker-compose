@@ -59,9 +59,8 @@ if [ -z "$client_id" ]; then
   "enabled": true,
   "fullScopeAllowed": "false",
   "baseUrl": "https://${client_name}.localhost",
-  "redirectUris": ["https://${client_name}.localhost/*"],
+  "redirectUris": ["https://${client_name}.localhost/oauth/callback*"],
   "defaultClientScopes": [
-    "role_list",
     "profile",
     "roles",
     "email"

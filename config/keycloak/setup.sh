@@ -21,6 +21,9 @@ echo '>>> Creating user with username=user and password=password'
 kcadm.sh create users -r applications -f - <<EOF
 {
   "username": "user",
+  "email": "user@email.com",
+  "firstName": "John",
+  "lastName": "Doe",
   "enabled": true,
   "emailVerified": true,
   "credentials": [{
