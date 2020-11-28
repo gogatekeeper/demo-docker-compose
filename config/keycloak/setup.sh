@@ -15,3 +15,18 @@ kcadm.sh config credentials --server http://keycloak:8080/auth --realm master --
 # This won't create another realm if one with this name exists
 echo '>>> Creating applications realm'
 kcadm.sh get realms/applications || kcadm.sh create realms -s realm=applications -s displayName=Applications -s enabled=true
+
+# This won't create another user if a user with this username already exists
+echo '>>> Creating user with username=user and password=password'
+kcadm.sh create users -r applications -f - <<EOF
+{
+  "username": "user",
+  "enabled": true,
+  "emailVerified": true,
+  "credentials": [{
+    "type": "password",
+    "value": "password",
+    "temporary": false
+  }]
+}
+EOF

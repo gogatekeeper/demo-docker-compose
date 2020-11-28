@@ -18,9 +18,12 @@ After everything has started, point your browser to
 
 ## Logging in as a user
 
-For now, you'll have to go into keycloak and manually create a user in the applications realm.
+A user with
 
-> TODO automate creation of user
++ username = `user`
++ password = `password`
+
+has been automatically created for you (see `./config/keycloak/setup.sh`)
 
 ## Network diagram
 
