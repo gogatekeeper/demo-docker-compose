@@ -37,11 +37,11 @@ services:
       KEYCLOAK_HOME: /opt/jboss/keycloak
     entrypoint: /keycloak/start.sh
 
-  louketo:
-    image: quay.io/louketo/louketo-proxy:1.0.0
+  gatekeeper:
+    image: quay.io/gogatekeeper/gatekeeper:1.1.0
     volumes:
-      - ./config/louketo/:/louketo/:ro
-    entrypoint: /louketo/start.sh
+      - ./config/gatekeeper/:/gatekeeper/:ro
+    entrypoint: /gatekeeper/start.sh
     depends_on:
       - keycloak
     # We run as root in this demo so that root can add caddy's self-signed cert
@@ -55,4 +55,4 @@ services:
   whoami:
     image: containous/whoami:latest
     depends_on:
-      - louketo
+      - gatekeeper

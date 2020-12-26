@@ -4,11 +4,11 @@ keycloak.localhost {
 }
 
 whoami.localhost {
-    reverse_proxy http://louketo
+    reverse_proxy http://gatekeeper
     tls internal
 }
 
-# Serve caddy's generated cert for louketo to pick up
+# Serve caddy's generated cert for gatekeeper to pick up
 caddy.localhost {
     file_server /root.crt {
         root /data/caddy/pki/authorities/local/

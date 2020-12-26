@@ -1,7 +1,7 @@
 # This is the id of the OAuth client, the client you configure in Keycloak
 client-id: whoami
 
-# This is the discovery url (louketo appends
+# This is the discovery url (gatekeeper appends
 #   `/.well-known/openid-configuration` to this, to obtain the public keys from
 #   the authorization server
 discovery-url: https://keycloak.localhost/auth/realms/applications
@@ -11,7 +11,7 @@ discovery-url: https://keycloak.localhost/auth/realms/applications
 #   cookie. According to spec, the refresh token should be private to the
 #   client. An encrypted refresh token in the cookie achieves this, since the
 #   refresh token cannot be abused in its encrypted form. This has the nice
-#   side effect of making the setup completely stateless for louketo.
+#   side effect of making the setup completely stateless for gatekeeper.
 encryption-key: yb96KrChmqnEOHuIbBi650T7VDqyTwLZ
 
 # We request the `whoami` scope, which will map the client id (`whoami`) into
@@ -22,13 +22,13 @@ scopes:
 # Turn on debug
 verbose: true
 
-# Set this to get louketo to handle refreshing of access tokens
+# Set this to get gatekeeper to handle refreshing of access tokens
 enable-refresh-tokens: true
 
-# Louketo will listen on all interfaces on port 80
+# gatekeeper will listen on all interfaces on port 80
 listen: :80
 
-# This tells louketo where to forward requests to
+# This tells gatekeeper where to forward requests to
 upstream-url: http://whoami:80
 
 # Authorization: deny all requests to the upstream by default, relax this later

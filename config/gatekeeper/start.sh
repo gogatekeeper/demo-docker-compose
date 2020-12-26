@@ -21,4 +21,4 @@ echo ">>> Adding cert to system CA store"
 client_secret=$("$script_dir"/setup.sh whoami read write)
 
 echo ">>> Using client_secret=|$client_secret|"
-exec /opt/louketo/louketo-proxy --config /louketo/config.yml --client-secret="$client_secret"
+exec /opt/gatekeeper/gatekeeper --config /gatekeeper/config.yml --client-secret="$client_secret"
